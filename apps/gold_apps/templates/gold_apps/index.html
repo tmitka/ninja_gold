@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Gold</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="gold">
+            Your Gold: {{request.session.gold}}
+        </div>
+        <div id="choices">
+            <div class='option_section'>
+                <h3>Farm</h3>
+                <h5>(earns 10-20 gold)</h5>
+                <form action="/process_money" method="POST">
+                {% csrf_token %}
+                    <input type="hidden" name="building" value="farm">
+                    <input class="find_gold" type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div class='option_section'>
+                <h3>Cave</h3>
+                <h5>(earns 5-10 gold)</h5>
+                <form action="/process_money" method="POST">
+                {% csrf_token %}
+                    <input type="hidden" name="building" value="cave">
+                    <input class="find_gold" type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div class='option_section'>
+                <h3>House</h3>
+                <h5>(earns 2-5 gold)</h5>
+                <form action="/process_money" method="POST">
+                {% csrf_token %}
+                    <input type="hidden" name="building" value="house">
+                    <input class="find_gold" type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div class='option_section'>
+                <h3>$$$Casino$$$</h3>
+                <h5>(gamble gold to gain or lose up to 50)</h5>
+                <form action="/process_money" method="POST">
+                {% csrf_token %}
+                    <input type="hidden" name="building" value="casino">
+                    <input class="find_gold" type="submit" value="Find Gold!">
+                </form>
+            </div>
+        </div>
+        <h5>History</h5>
+        <div id="history">
+            {% for history in request.session.history %}
+            <p>{{history}}</p>
+     
+            {% endfor %}
+  
+        </div>
+        <form action='/reset' method="POST">
+        {% csrf_token %}
+            <input type="submit" value="Reset">
+        </form>
+    </div>
+</body>
+</html>
